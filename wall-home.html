@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>The White Wall</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/style.css">
+    <script src="https://unpkg.com/@webcomponents/webcomponentsjs@2.1.3/webcomponents-loader.js"></script>
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.js"></script>
+    <script nomodule src="https://unpkg.com/@google/model-viewer/dist/model-viewer-legacy.js"></script>
+    <!-- using type="module" to ignore IE11 -->
+    <script type="module" src="script2.js" defer></script>
+  </head>
+  
+  
+  <body>
+  
+      <style> 
+        @font-face {
+          font-family: EBGaramound12;
+          src: url(ebgaramond12-regular-webfont.woff);
+        }
+        @font-face {
+          font-family: EBGaramound12;
+          src: url(ebgaramond12-italic-webfont.woff2);
+          font-style: italic
+        }
+    
+        @font-face {
+          font-family: OpenSans;
+          src: url(opensans-bold-webfont.woff);
+        }
+        </style>
+
+<style>
+  button{
+    display: block;
+    width: 15px;
+    height: 15px;
+    border-radius: 30px;
+    border: none;
+    background-color: rgba(219, 219, 219, 0);
+    box-sizing: border-box;
+  }
+
+  button[slot="hotspot-hand"]{
+    --min-hotspot-opacity: 0;
+    border-radius: 30px;
+    background-color: rgba(219, 219, 219, 0);
+  }
+
+  button[slot="hotspot-foot"]:not([data-visible]) {
+    background-color: transparent;
+    border-radius: 30px;
+    border: 2px solid rgba(219, 219, 219, 0);
+  
+  }
+
+  button[slot="hotspot-visor"]{
+    --min-hotspot-opacity: 0;
+    border-radius: 30px;
+    background-color: rgba(219, 219, 219, 0);
+  }
+
+  button[slot="hotspot-last"]{
+    --min-hotspot-opacity: 0;
+    border-radius: 30px;
+    background-color: rgba(219, 219, 219, 0);
+  }
+
+  #annotation{
+    background-color: #ececec00;
+    position: absolute;
+    transform: translate(10px, 10px);
+    width: 290px;
+    border-radius: 10px;
+    padding: 15px;
+    text-align: left;
+    font-size: 16px;
+    font-family: EBGaramound12;
+  }
+  /* This keeps child nodes hidden while the element loads */
+  :not(:defined) > * {
+    display: none;
+  }
+
+  h2 {
+  font-size: 26px;
+  color: rgb(255, 255, 255);
+  top: 5px;
+  border: 3px solid rgb(0, 0, 0);
+  position: absolute;
+  padding: 11px 11px;
+  left: 20px;
+  border-radius: 19px;
+  text-align:center;
+}
+
+title2 {
+  font-size: 26px;
+  color: rgb(255, 255, 255);
+  background-color: rgb(0, 0, 0);
+  position: initial;
+  top: 20 px;
+  left: 120px;
+  border: 0px solid rgba(0, 0, 0, 0.336);
+  padding: 11px 9px;
+  border-radius: 19px;
+  text-align:center;
+
+}
+
+buttonb {
+  background-color: rgb(255, 255, 255); 
+  color: rgb(0, 0, 0);
+  font-family: sans-serif;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 17px 13px;
+  transition-duration: 0.2s;
+  cursor: pointer;
+  font-size: 26px;
+  border: 3px solid rgb(0, 0, 0);
+  padding: 11px 20px;
+  border-radius: 19px;
+  position: relative;
+  left: 80 px;
+  bottom: 100 px;
+
+}
+
+.buttonb1 {
+background-color: rgb(255, 255, 255); 
+color: rgb(0, 0, 0); 
+border: 2px solid rgb(0, 0, 0);
+}
+
+.buttonb1:hover {
+background-color: rgb(0, 0, 0);
+color: white;
+border: 2px solid rgb(0, 0, 0);
+}
+
+buttonc {
+  background-color: rgba(255, 14, 14, 0); 
+  color: rgb(167, 166, 166);
+  font-family: sans-serif;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 25px;
+  transition-duration: 0.2s;
+  cursor: pointer;
+  border: 3px solid rgba(255, 255, 255, 0.356); 
+  padding: 6px 13px;
+  border-radius: 19px;
+
+}
+
+.buttonc1 {
+background-color: rgba(255, 255, 255, 0.164); 
+color: rgb(0, 0, 0); 
+border: 2px solid rgba(255, 255, 255, 0.356); 
+}
+
+.buttonc1:hover {
+background-color: rgb(93, 157, 230);
+color: rgb(0, 0, 0);
+border: 2px solid rgb(0, 0, 0);
+}
+
+p {
+position: fixed;
+font-family: sans-serif;
+font-size: 13px;
+margin: 10px;
+padding: 5px;
+bottom: 0px;
+ left: 0;
+ }
+
+
+      buttond {
+        position: absolute;
+        left: 540px;
+        top: 19px;
+        display: inline-block;
+        cursor: pointer;
+        outline: none;
+        border: 0;
+        vertical-align: middle;
+        text-decoration: none;
+        background: transparent;
+        padding: 0;
+        
+      }
+      buttond.btn {
+        width: 9.5rem;
+        height: auto;
+        border-radius: 19px;
+      }
+      buttond.btn .circle {
+        transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+        position: relative;
+        display: block;
+        margin: 0;
+        width: 3.1rem;
+        height: 3.1rem;
+        background: #000000;
+        border-radius: 19px;
+      }
+      buttond.btn .circle .icon {
+        transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+        background: #fff;
+      }
+      buttond.btn .circle .icon.arrow {
+        transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+        left: 0.625rem;
+        width: 1.125rem;
+        height: 0.125rem;
+        background: none;
+      }
+      buttond.btn .circle .icon.arrow::before {
+        position: absolute;
+        content: '';
+        top: -0.25rem;
+        right: 0.0625rem;
+        width: 0.625rem;
+        height: 0.625rem;
+        border-top: 0.125rem solid #fff;
+        border-right: 0.125rem solid #fff;
+        -webkit-transform: rotate(45deg);
+                transform: rotate(45deg);
+      }
+      buttond.btn .button-text {
+        transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+        font-family: sans-serif;
+        font-size: 25px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        padding: 0.75rem 0;
+        margin: 0 0 0 1.85rem;
+        color: #ffffff00;
+        line-height: 1.1;
+        text-align: center;
+        text-transform: uppercase;
+      }
+      buttond:hover .circle {
+        width: 100%;
+      }
+      buttond:hover .circle .icon.arrow {
+        background: #fff;
+        -webkit-transform: translate(1rem, 0);
+                transform: translate(1rem, 0);
+      }
+      buttond:hover .button-text {
+        color: #fff;
+      }
+</style>
+
+<model-viewer id="viewer"
+                  src="models/wall.glb"
+                  exposure="0.7"
+                  shadow-intensity="2"
+                  shadow-softness= "2"
+                  interaction-prompt-style="none"
+                 
+                  
+                  autoplay camera-controls field-of-view="45deg" 
+                  camera-controls camera-orbit="-6deg 87deg 12.5m" 
+                
+
+camera-controls src="models/wall.glb">
+  <button slot="hotspot-visor" data-position="-4 7.96 -8.62" data-normal="1 0 0">
+    <div id="annotation">
+      <span style = "font-family: sans-serif; font-size: 17px"><b>Art for the Gallery</b></span>
+  <br>
+  <br>
+  Before the rise of personal exhbitions, art was previously reserved for the Church or artists would first have to become members of an Academy.
+  Artwork presented in these 19th Century old Masters Galleries adhered to very specific conditions: work hung at eye level were considered the most important, while anything
+  below or above it was seen of a lesser caliber. Today, galleries monopolised by wealthy owners and curators form the new 'Academy', deciding what is to be shown or not. 
+  The wall is treated as a sacred surface, where anything placed on it instanly achieves value
+  (take <a href="https://news.artnet.com/market/maurizio-cattelan-banana-art-basel-miami-beach-1722516" target="_blank"><i> this </i></a> duct-taped banana for instance)
+  <br>
+  
+</div>
+  </button>
+
+  <button slot="hotspot-hand" data-position="1 7.87 -8.6" data-normal="1 1 0 ">
+  <div id="annotation">
+  <span style = "font-family: sans-serif; font-size: 17px"><b>The Default White Container</b></span>
+  <br>
+  <br>
+    The argument for the clean, uninterrupted lines and surfaces of the white cube was that it provided the best space for contemplation.
+    This depersonalisation reflected values of Abstract Art predominant at the time- that it could transcend specifics of any given culture- 
+    as well as functioning as the perfect backdrop for work to be presented and sold- envoloped by pristine whiteness to emphasise it's 'pureness'.
+    What was once an informed choice, the white container has become an unexamined assumption and standardised approach to displaying art.
+    <br>
+  </div>
+  </button>
+
+  <button slot="hotspot-last" data-position="5.33 7.34 -9.4" data-normal="-1 2 0">
+  <div id="annotation">
+    <span style = "font-family: sans-serif; font-size: 17px"><b>A Semantic Space</b></span>
+  <br>
+  <br>
+  Taken out of context and put into a space accessible by everyone, this White Wall calls upon it's viewers to provide meaning- 
+  becoming the work of art itself. While the ideologically loaded colour white once symbolised purity and detachment, it is now a blank canvas waiting to be filled.
+  The prescriptive experience of staring at a single artwork against a blank surface has been reimagined as a nonstop process of reinterpretation as
+  you become both artist <br>and audience. 
+  <br>
+  <br>
+  <br>
+  <a href="draw/public/index.html"><buttonc class="buttonc buttonc1">DRAW</buttonc></a>
+  
+  <br>
+  <br></div> </button>
+
+  <buttond class="btn">
+    <span class="circle">
+      <span class="icon arrow"></span>
+    </span>
+    <a href="box-home.html"><span class="button-text">BOX</span></a>
+  </buttond>
+
+
+
+  <a href="index.html"><buttonb class="buttonb buttonb1">HOME</buttonb></a>
+  <p> ⚙︎ GALLERY COMING SOON </p>
+
+  <title2> &nbsp; ABOUT : THE WHITE WALL &nbsp; </title2>
+
+  <div id="instructions">
+ </div>
+
+
+   <div id="colour">
+     <input type="color" id="backgroundColor" value="#FFFFFF"><br/>
+   </div>
+  
+ 
+   <div id="controls">
+
+     <label for="src">VIEW :</label>
+     <select id="src">
+       <option value="models/wall.glb">DEFAULT</option>
+       <option value="models/riot wall.glb">20.5.20</option>
+       <option value="models/catwall.glb">21.5.20</option>
+       <option value="models/1.glb">29.5.20</option>
+       
+
+   </div>
+
+  </div>
+</body>
+</html>
+
+
+ 
